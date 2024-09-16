@@ -27,7 +27,6 @@ class NotificationController extends AbstractController
         #[MapRequestPayload]
         NotificationDto $notificationDto
     ): JsonResponse {
-        $this->providerService->process($notificationDto);
         try {
             $this->providerService->process($notificationDto);
         } catch (Exception $exception) {

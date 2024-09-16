@@ -9,8 +9,9 @@ Simple application for notify users with different channels and providers.
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
 2. Run `docker compose build --no-cache` to build fresh images
 3. Install all dependencies `composer install`
-4. Copy `env.example` to `.env` and set all variables with providers instructions below.
-5. You can use next route for init notify process. Provider allow  only at [sms,email,telegram]
+4. Run `docker compose up -d`
+5. Copy `env.example` to `.env` and set all variables with providers instructions below.
+6. You can use next route for init notify process. Provider allow  only at [sms,email,telegram]
 
 ```
 curl --location 'https://localhost/api/v1/notification/' \
