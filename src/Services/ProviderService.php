@@ -33,6 +33,7 @@ readonly class ProviderService
         $channel = $notificationDto->getChannel();
         $message = $notificationDto->getNotification();
         $enabled = filter_var($this->multipleSend['enabled'], FILTER_VALIDATE_BOOLEAN);
+
         if ($enabled) {
             $this->sendMultiple($message, $user);
         } else {
