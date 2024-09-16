@@ -93,7 +93,7 @@ readonly class ProviderService
             throw new Exception("No active providers available for channel: $channel");
         }
 
-//        shuffle($activeProviders);
+        shuffle($activeProviders);
         $maxRetries = 1;
         $retryDelay = 1;
 
