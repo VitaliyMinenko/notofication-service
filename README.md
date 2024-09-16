@@ -1,51 +1,47 @@
-# Symfony Docker
+# Notifiaer service
+#### Version 1.0b
+#### Author: Vitalii Minenko
 
-A [Docker](https://www.docker.com/)-based installer and runtime for the [Symfony](https://symfony.com) web framework,
-with [FrankenPHP](https://frankenphp.dev) and [Caddy](https://caddyserver.com/) inside!
-
-![CI](https://github.com/dunglas/symfony-docker/workflows/CI/badge.svg)
+Simple application for notify users with different channels and providers.
 
 ## Getting Started
 
 1. If not already done, [install Docker Compose](https://docs.docker.com/compose/install/) (v2.10+)
 2. Run `docker compose build --no-cache` to build fresh images
 3. Run `docker compose up --pull always -d --wait` to set up and start a fresh Symfony project
-4. Open `https://localhost` in your favorite web browser and [accept the auto-generated TLS certificate](https://stackoverflow.com/a/15076602/1352334)
-5. Run `docker compose down --remove-orphans` to stop the Docker containers.
+4. Install all dependencies `composer install`
+6. Copy `env.example` to `.env` and set all variables with providers instructions below.
+5. You can use next route for init notify process. Provider allow  only at [sms,email,telegram]
 
-## Features
+```
+curl --location 'https://localhost/api/v1/notification/' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "s.goodman@gmail.com",
+    "notification": "Better call Saul.",
+    "provider": "email"
+}
+'
+```
 
-* Production, development and CI ready
-* Just 1 service by default
-* Blazing-fast performance thanks to [the worker mode of FrankenPHP](https://github.com/dunglas/frankenphp/blob/main/docs/worker.md) (automatically enabled in prod mode)
-* [Installation of extra Docker Compose services](docs/extra-services.md) with Symfony Flex
-* Automatic HTTPS (in dev and prod)
-* HTTP/3 and [Early Hints](https://symfony.com/blog/new-in-symfony-6-3-early-hints) support
-* Real-time messaging thanks to a built-in [Mercure hub](https://symfony.com/doc/current/mercure.html)
-* [Vulcain](https://vulcain.rocks) support
-* Native [XDebug](docs/xdebug.md) integration
-* Super-readable configuration
+## Env Variables
 
-**Enjoy!**
+* ```TWILIO_PHONE_NUMBER=13305775127``` Phone number from twilio provider
+* ```TWILIO_ACCOUNT_SID=secret``` Twilio account sid.
+* ```TWILIO_AUTH_TOKEN=secret``` Twilio token
+* ```MAILER_DSN=smtp://9aec0937b3b822:dbfb3e97e83eea@sandbox.smtp.mailtrap.io:2525``` Maile DSN
+* ```TELEGRAM_TOKEN=secret``` Telegram token haw to use read below (https://core.telegram.org/api)
+* ```TELEGRAM_URL=https://api.telegram.org/bot%s/sendMessage``` Telegram url
+* ```SMS_KEY="secret"``` //Key for VONAGE provider (https://developer.vonage.com/en/documentation)
+* ```SMS_SECRET="secret""``` //Secret for VONAGE provider 
+* ```SMS_ORGANIZATION="GO"``` //Organization name for VONAGE provider 
+* ```MULTIPLE_SEND_SMS=false``` Configuration for multiple sender accept
+* ```MULTIPLE_SEND_EMAIL=false``` Enable/Disable provider from multiple
+* ```MULTIPLE_SEND_TELEGRAM=true``` Enable/Disable provider from multiple
+* ```MULTIPLE_SEND=false``` Enable/Disable provider from multiple
+  
+  
+  
 
-## Docs
+**Now application is ready and you can use it and test it by Postman or another service. Please enjoy ;) Thank you!**
 
-1. [Options available](docs/options.md)
-2. [Using Symfony Docker with an existing project](docs/existing-project.md)
-3. [Support for extra services](docs/extra-services.md)
-4. [Deploying in production](docs/production.md)
-5. [Debugging with Xdebug](docs/xdebug.md)
-6. [TLS Certificates](docs/tls.md)
-7. [Using MySQL instead of PostgreSQL](docs/mysql.md)
-8. [Using Alpine Linux instead of Debian](docs/alpine.md)
-9. [Using a Makefile](docs/makefile.md)
-10. [Updating the template](docs/updating.md)
-11. [Troubleshooting](docs/troubleshooting.md)
-
-## License
-
-Symfony Docker is available under the MIT License.
-
-## Credits
-
-Created by [Kévin Dunglas](https://dunglas.dev), co-maintained by [Maxime Helias](https://twitter.com/maxhelias) and sponsored by [Les-Tilleuls.coop](https://les-tilleuls.coop).

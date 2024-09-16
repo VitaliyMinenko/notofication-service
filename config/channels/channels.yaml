@@ -1,0 +1,14 @@
+parameters:
+    channels:
+        email:
+            - class: App\Providers\EmailProvider
+              enabled: true
+        sms:
+            - class: App\Providers\Twilio
+              enabled: true
+            - class: App\Providers\Vonage
+              enabled: true
+        telegram:
+            - class: App\Providers\TelegramProvider
+              enabled: true
+
